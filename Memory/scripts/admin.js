@@ -21,7 +21,7 @@ async function bilderladen() {
 }
 function generateImage() {
     console.log(bilderSrc);
-    for (let i = 0; i < bilderanz; i++) {
+    for (let i = 0; i < bilderSrc.length; i++) {
         let content = document.getElementById("contentBilder");
         let karte = document.createElement("div");
         let karteBild = document.createElement("img");
@@ -78,17 +78,19 @@ async function send() {
     let response = await fetch(_url);
     let benutzer = await response.json();
     console.log(benutzer);
+    window.open("../html/admin.html?", "_self");
 }
 async function deletSrc() {
     let _url = "https://memoryal.herokuapp.com";
     //let _url: RequestInfo = "http://localhost:8100";
-    _url = _url + "/sendurl";
+    _url = _url + "/delurl";
     let aksrc = document.getElementsByClassName("auswahl")[0].firstChild;
-    _url = _url + "?" + aksrc.src.toString;
+    _url = _url + "?src=" + aksrc.src.toString();
     console.log(_url);
     let response = await fetch(_url);
     let benutzer = await response.json();
     console.log(benutzer);
+    window.open("../html/admin.html?", "_self");
 }
 document.querySelector("#send").addEventListener("click", send);
 //# sourceMappingURL=admin.js.map

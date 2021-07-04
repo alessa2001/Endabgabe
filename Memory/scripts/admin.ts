@@ -32,7 +32,7 @@ async function bilderladen(): Promise<void> {
 function generateImage():void{
    
     console.log(bilderSrc);
-    for(let i:number=0; i<bilderanz;i++){
+    for(let i:number=0; i<bilderSrc.length;i++){
     let content : HTMLDivElement = <HTMLDivElement>document.getElementById("contentBilder");
        
         let karte:HTMLDivElement = document.createElement("div");
@@ -101,24 +101,25 @@ async function send(): Promise<void> {
     let response: Response = await fetch(_url);
     let benutzer: ServerAntwort = await response.json();
     console.log(benutzer);
-  
+    window.open("../html/admin.html?" ,"_self");
 }
 
 async function deletSrc():Promise<void>{
 
     let _url: RequestInfo = "https://memoryal.herokuapp.com";
     //let _url: RequestInfo = "http://localhost:8100";
-    _url = _url + "/sendurl";
+    _url = _url + "/delurl";
 
     let aksrc:HTMLImageElement = <HTMLImageElement>document.getElementsByClassName("auswahl")[0].firstChild;
     
 
-   _url = _url + "?"+ aksrc.src.toString;
+   _url = _url + "?src="+ aksrc.src.toString();
   
     console.log(_url);
     let response: Response = await fetch(_url);
     let benutzer: ServerAntwort = await response.json();
     console.log(benutzer);
+    window.open("../html/admin.html?" ,"_self");
 }
 
 document.querySelector("#send").addEventListener("click", send);
