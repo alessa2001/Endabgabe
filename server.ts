@@ -1,42 +1,38 @@
 import * as Http from "http";
 import * as Url from "url";
+import * as Mongo from "mongodb";
 
 export namespace ServerRequest {
-    console.log("Starting server"); //"Starting server" wird in der Konsole ausgegeben
-    let port: number = Number(process.env.PORT); //es wird eine neue Variable "Port" angelegt
-    if (!port) //stellt sozusagen eine Art Hafen dar
-        port = 8100; //Der Port(Hafen) wird mit "8100" initialisiert
+    console.log("Starting server");
+    let port: number = Number(process.env.PORT); 
+    if (!port) 
+        port = 8100;
 
-    let server: Http.Server = Http.createServer(); //hier wird ein neuer Server erstellt
-    server.addListener("request", handleRequest); //der Server bekommt einen Listener dazu, welcher die Funktion handleRequest aufruft
-    server.addListener("listening", handleListen); //ebenfalls wird ein zweiter Listener angehängt, der die Funktion handleListen aufruft
-    server.listen(port); // Der Server hört sozusagen dem vorher definierten Port zu
-    // Hier wird der Server generiert/erzeugt. Unter anderem werden ihm ein Port und ein Listener zugewiesen, der auf den Eingang von Dateien wartet.
-
+    let server: Http.Server = Http.createServer(); 
+    server.addListener("request", handleRequest); 
+    server.addListener("listening", handleListen);
+    server.listen(port);
+    
     function handleListen(): void {
-        console.log("Listening"); //Es wird Listening in der Konsole ausgegeben
+        console.log("Listening"); 
     }
 
 
-    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void { //Die Funktion wird beim Eingang von Daten abgerufen
-        console.log("I hear voices"); //es wird "I hear voices" in der Konsole ausgegeben
-        console.log(_request.url); //URL vom Request wird in der Konsole ausgegeben
-      // Eigenschaften des Headers werden mit setHeader festgelegt
-        _response.setHeader("Access-Control-Allow-Origin", "*"); // es wird festegelgt wer darauf zugreifen darf
+    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
+          console.log("empfange daten"); 
+        console.log(_request.url);
+      
+        _response.setHeader("Access-Control-Allow-Origin", "*");
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
 
         if (url.pathname == "/html") {
             _response.setHeader("content-type", "text/html; charset=utf-8");
             for (let key in url.query) {
-                _response.write(key + ":" + url.query[key] + "</br>");
+                _response.write(key + ":" + url.query[key] );
 
             }
         }
-        if (url.pathname == "/json") {
-            _response.setHeader("content-type", "application/json"); 
-            let jsonString: String = JSON.stringify(url.query);
-            _response.write(jsonString);
-        }
+       
         _response.end();
     }
   
