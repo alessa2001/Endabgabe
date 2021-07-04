@@ -28,7 +28,7 @@ export namespace ServerRequest {
         if (url.pathname == "/html") {
             _response.setHeader("content-type", "text/html; charset=utf-8");
             for (let key in url.query) {
-                _response.write(key + ":" + url.query[key] );
+                _response.write(key + ":" + url.query[key] + "</br>");
 
             }
         }
