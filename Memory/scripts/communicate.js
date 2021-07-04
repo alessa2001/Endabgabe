@@ -2,31 +2,32 @@
 //import { ServerRequest } from "./server";
 var ServerRequest;
 (function (ServerRequest) {
-    async function datenAlsHTML() {
+    async function print() {
         let formData = new FormData(document.forms[0]);
-        let url = "https://memoryal.herokuapp.com";
+        let _url = "https://servertest123somussdasssein.herokuapp.com";
+        //let _url: RequestInfo = "http://localhost:8100";
+        _url = _url + "/paste";
+        console.log(_url);
         let query = new URLSearchParams(formData);
-        //let url:  RequestInfo = "http://localhost:8100";
-        url += "/html" + "?" + query.toString();
-        let response = await fetch(url);
-        let inhalt = await response.text();
-        let ausgabe = document.getElementById("antwort");
-        ausgabe.innerHTML = inhalt;
-    }
-    async function datenAlsJSON() {
-        let formData = new FormData(document.forms[0]);
-        let url = "https://memoryal.herokuapp.com";
-        let query = new URLSearchParams(formData);
-        //let url:  RequestInfo = "http://localhost:8100";
-        url += "/json" + "?" + query.toString();
-        let response = await fetch(url);
-        let objektJSON = await response.json();
+        _url = _url + "?" + query.toString();
+        let response = await fetch(_url);
+        let antwort = await response.json();
         let ausgabe = document.getElementById("1");
-        ausgabe.innerHTML = "<td>" + objektJSON.vorname + "</td> <td>" + objektJSON.nachname + "</td>";
+        ausgabe.innerHTML = "<td>" + antwort[1].name + "</td> <td>" + antwort[1].zeit + "</td>";
     }
-    let htmlButton = document.getElementById("htmlbutton");
-    htmlButton.addEventListener("click", datenAlsHTML);
-    let jsonButton = document.getElementById("jsonbutton");
-    jsonButton.addEventListener("click", datenAlsJSON);
+    async function send() {
+        let formData = new FormData(document.forms[0]);
+        let _url = "https://servertest123somussdasssein.herokuapp.com";
+        //let _url: RequestInfo = "http://localhost:8100";
+        _url = _url + "/send";
+        console.log(_url);
+        let query = new URLSearchParams(formData);
+        _url = _url + "?" + query.toString();
+        let response = await fetch(_url);
+        let benutzer = await response.json();
+        console.log(benutzer);
+    }
+    document.querySelector("#print").addEventListener("click", print);
+    document.querySelector("#send").addEventListener("click", send);
 })(ServerRequest || (ServerRequest = {}));
 //# sourceMappingURL=communicate.js.map
