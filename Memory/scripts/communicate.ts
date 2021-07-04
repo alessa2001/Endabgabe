@@ -27,15 +27,18 @@ namespace ServerRequest {
 
     async function datenAlsJSON(): Promise<void> {
         let formData: FormData = new FormData(document.forms[0]);
-        let url: string = "https://servertest123somussdasssein.herokuapp.com";
+        let url: string = "https://memoryal.herokuapp.com";
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         //let url:  RequestInfo = "http://localhost:8100";
         url += "/json" + "?" + query.toString();
         
         let response: Response = await fetch(url);
         let objektJSON: Formulardaten = await response.json();
-        console.log(objektJSON);
+        
+        let ausgabe: HTMLTableCellElement = <HTMLTableCellElement>document.getElementById("1");
+    
 
+        ausgabe.innerHTML = "<td>"+objektJSON.vorname+"</td> <td>"+objektJSON.nachname+"</td>";
     }
 
     let htmlButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("htmlbutton");
