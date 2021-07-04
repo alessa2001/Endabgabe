@@ -45,6 +45,14 @@ var ServerRequest;
                 sendDataUrl(bildSrc);
                 _response.write(JSON.stringify(benutzerBeispiel));
             }
+            else if (pathname == "/delurl") {
+                let jsonString = JSON.stringify(url.query);
+                console.log(jsonString);
+                console.log(bildSrc);
+                console.log("Database connected");
+                delDataUrl(bildSrc);
+                _response.write(JSON.stringify(benutzerBeispiel));
+            }
             else if (pathname == "/paste") {
                 _response.write(JSON.stringify(await pasteData()));
             }
@@ -69,6 +77,14 @@ var ServerRequest;
         console.log("Database send");
         let benutzer = mongoClient.db("memoryal").collection("src");
         benutzer.insertOne(_b);
+    }
+    async function delDataUrl(_b) {
+        let options = { useNewUrlParser: true, useUnifiedTopology: true };
+        let mongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Database send");
+        let benutzer = mongoClient.db("memoryal").collection("src");
+        benutzer.deleteOne(_b);
     }
     async function pasteData() {
         let options = { useNewUrlParser: true, useUnifiedTopology: true };

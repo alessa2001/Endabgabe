@@ -47,7 +47,7 @@ function generateGame() {
         /* karte.style.top = ""+Math.random()*(window.innerHeight/(muster-i))+"px";
          karte.style.left = ""+Math.random()*(window.innerWidth/(muster-i))+"px";*/
         karteBild.addEventListener("click", anschauen);
-        karteBild.src = "../bilderSpiel/" + bilderMe1[i];
+        karteBild.src = "" + bilderMe1[i];
         karteBild.className = "karteImg";
         karte.slot = "" + bilderMe1[i];
         karte.id = "" + i;

@@ -29,7 +29,7 @@ function generateImage() {
         /* karte.style.top = ""+Math.random()*(window.innerHeight/(muster-i))+"px";
          karte.style.left = ""+Math.random()*(window.innerWidth/(muster-i))+"px";*/
         karteBild.addEventListener("click", mull);
-        karteBild.src = "../bilderSpiel/" + bilderSrc[i];
+        karteBild.src = "" + bilderSrc[i];
         karteBild.className = "karteImg";
         karte.id = "" + i;
         if (Math.random() < 0.5) {
@@ -44,6 +44,7 @@ function generateImage() {
     let mulleimer = document.getElementById("mulleimer");
     mulleimer.addEventListener("mouseenter", mullcolor);
     mulleimer.addEventListener("mouseleave", mulloff);
+    mulleimer.addEventListener("click", deletSrc);
 }
 function mull(e) {
     for (let i = 0; i < document.getElementsByClassName("karte").length; i++) {
@@ -73,6 +74,17 @@ async function send() {
     let query = new URLSearchParams(formData);
     _url = _url + "/sendurl";
     _url = _url + "?" + query.toString();
+    console.log(_url);
+    let response = await fetch(_url);
+    let benutzer = await response.json();
+    console.log(benutzer);
+}
+async function deletSrc() {
+    let _url = "https://memoryal.herokuapp.com";
+    //let _url: RequestInfo = "http://localhost:8100";
+    _url = _url + "/sendurl";
+    let aksrc = document.getElementsByClassName("auswahl")[0].firstChild;
+    _url = _url + "?" + aksrc.src.toString;
     console.log(_url);
     let response = await fetch(_url);
     let benutzer = await response.json();

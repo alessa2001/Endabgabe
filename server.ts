@@ -69,6 +69,18 @@ export namespace ServerRequest {
                 _response.write(JSON.stringify(benutzerBeispiel));
                
 
+            }else if (pathname == "/delurl") {
+                let jsonString: string = JSON.stringify(url.query);
+
+                console.log(jsonString);
+                console.log(bildSrc);
+
+                console.log("Database connected");
+               delDataUrl(bildSrc);
+
+                _response.write(JSON.stringify(benutzerBeispiel));
+               
+
             } else if (pathname == "/paste") {
                 _response.write(JSON.stringify( await pasteData()));
 
@@ -98,6 +110,16 @@ export namespace ServerRequest {
         console.log("Database send");
         let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("src");
         benutzer.insertOne(_b);
+
+    }
+    async function delDataUrl(_b: BildSrc): Promise<void> {
+        let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Database send");
+        let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("src");
+        benutzer.deleteOne(_b);
 
     }
     async function pasteData(): Promise<ServerAntwort[]> {
