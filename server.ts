@@ -14,6 +14,9 @@ export namespace ServerRequest {
         zeit: string;
     }
 
+    interface BildSrc {
+        src: string;
+    }
     console.log("Starting server"); //Starting server wird ausgegeben
     let port: number = Number(process.env.PORT);
     if (!port) //Port == "Hafen"
@@ -41,7 +44,7 @@ export namespace ServerRequest {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let pathname: string = <string>url.pathname;
             let benutzerBeispiel: ServerAntwort = { name: url.query.name + "", zeit: url.query.zeit + "" };
-
+            let bildSrc: BildSrc = { src: url.query.src+""};
             if (pathname == "/send") {
                 let jsonString: string = JSON.stringify(url.query);
 
@@ -58,10 +61,10 @@ export namespace ServerRequest {
                 let jsonString: string = JSON.stringify(url.query);
 
                 console.log(jsonString);
-                console.log(benutzerBeispiel);
+                console.log(bildSrc);
 
                 console.log("Database connected");
-                sendDataUrl(benutzerBeispiel);
+                sendDataUrl(bildSrc);
 
                 _response.write(JSON.stringify(benutzerBeispiel));
                
@@ -87,7 +90,7 @@ export namespace ServerRequest {
         benutzer.insertOne(_b);
 
     }
-    async function sendDataUrl(_b: ServerAntwort): Promise<void> {
+    async function sendDataUrl(_b: BildSrc): Promise<void> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);

@@ -28,6 +28,7 @@ var ServerRequest;
             let url = Url.parse(_request.url, true);
             let pathname = url.pathname;
             let benutzerBeispiel = { name: url.query.name + "", zeit: url.query.zeit + "" };
+            let bildSrc = { src: url.query.src + "" };
             if (pathname == "/send") {
                 let jsonString = JSON.stringify(url.query);
                 console.log(jsonString);
@@ -39,9 +40,9 @@ var ServerRequest;
             else if (pathname == "/sendurl") {
                 let jsonString = JSON.stringify(url.query);
                 console.log(jsonString);
-                console.log(benutzerBeispiel);
+                console.log(bildSrc);
                 console.log("Database connected");
-                sendDataUrl(benutzerBeispiel);
+                sendDataUrl(bildSrc);
                 _response.write(JSON.stringify(benutzerBeispiel));
             }
             else if (pathname == "/paste") {
