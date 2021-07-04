@@ -1,6 +1,6 @@
 "use strict";
 let muster = 8;
-let bilder = ["blume.jpg", "blume2.jpg", "blume3.jpg", "blume4.jpg", "blume5.jpg", "blume6.jpg", "blume7.jpg", "blume8.jpg"];
+let bilder = [];
 let bilderMe1 = [];
 let bilderMe2 = [];
 let uberprufen = [];
@@ -9,6 +9,20 @@ let zeitEnde;
 let gesamtzeit;
 let counter = 0;
 window.addEventListener("load", generateGame);
+async function print() {
+    let formData = new FormData(document.forms[0]);
+    let _url = "https://servertest123somussdasssein.herokuapp.com";
+    //let _url: RequestInfo = "http://localhost:8100";
+    _url = _url + "/bilder";
+    console.log(_url);
+    let query = new URLSearchParams(formData);
+    _url = _url + "?" + query.toString();
+    let response = await fetch(_url);
+    let antwort = await response.json();
+    for (let i = 0; i < antwort.length; i++) {
+        bilder.push(antwort[i].src);
+    }
+}
 function generateGame() {
     for (let i = 0; i < muster; i++) {
         let schreiben = Math.round(Math.random() * (bilder.length - 1));
@@ -82,7 +96,7 @@ function gameEnde() {
     if (counter == muster) {
         zeitEnde = new Date;
         gesamtzeit = Math.floor((zeitEnde.getTime() - zeit.getTime()) / 1000);
-        window.open("file:///C:/Users/dalal/Alessa/Studium/Semester_2/GIS/GIS-SoSe.2021/Memory/html/score.html?" + gesamtzeit, "_blank");
+        window.open("../html/score.html?" + gesamtzeit, "_self");
     }
 }
 //# sourceMappingURL=main.js.map

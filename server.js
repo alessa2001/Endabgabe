@@ -39,6 +39,9 @@ var ServerRequest;
             else if (pathname == "/paste") {
                 _response.write(JSON.stringify(await pasteData()));
             }
+            else if (pathname == "/bilder") {
+                _response.write(JSON.stringify(await pasteDataBilder()));
+            }
         }
         _response.end(); //Die Response wird beendet
     }
@@ -56,6 +59,16 @@ var ServerRequest;
         await mongoClient.connect();
         console.log("Database paste");
         let benutzer = mongoClient.db("memoryal").collection("score");
+        let cursor = benutzer.find();
+        let ergebnis = await cursor.toArray();
+        return ergebnis;
+    }
+    async function pasteDataBilder() {
+        let options = { useNewUrlParser: true, useUnifiedTopology: true };
+        let mongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Database paste");
+        let benutzer = mongoClient.db("memoryal").collection("src");
         let cursor = benutzer.find();
         let ergebnis = await cursor.toArray();
         return ergebnis;

@@ -58,6 +58,10 @@ export namespace ServerRequest {
                 _response.write(JSON.stringify( await pasteData()));
 
             }
+            else if (pathname == "/bilder") {
+                _response.write(JSON.stringify( await pasteDataBilder()));
+
+            }
         }
         _response.end(); //Die Response wird beendet
     }
@@ -78,6 +82,18 @@ export namespace ServerRequest {
         await mongoClient.connect();
         console.log("Database paste");
         let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("score");
+        let cursor: Mongo.Cursor = benutzer.find();
+        let ergebnis: ServerAntwort[] = await cursor.toArray();
+        return ergebnis;
+    }
+
+    async function pasteDataBilder(): Promise<ServerAntwort[]> {
+        let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Database paste");
+        let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("src");
         let cursor: Mongo.Cursor = benutzer.find();
         let ergebnis: ServerAntwort[] = await cursor.toArray();
         return ergebnis;
