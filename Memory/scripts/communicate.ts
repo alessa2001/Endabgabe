@@ -45,7 +45,7 @@ namespace ServerRequest {
         for(let i:number = 0; i<10;i++){
             let ausgabe: HTMLTableCellElement = <HTMLTableCellElement>document.getElementById(""+(i+1));
            
-            ausgabe.innerHTML = "<td>"+antwort[ platz[i]].name+"</td> <td>"+antwort[platz[i]].zeit+"</td>";
+            ausgabe.innerHTML = "<td>"+antwort[ platz[i]].name+"</td> <td>"+antwort[platz[i]].zeit+" s</td>";
         }
         time = window.location.toString().split("?")[1];
       if(time != undefined){
