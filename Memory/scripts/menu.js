@@ -7,11 +7,13 @@ function menu() {
     }
 }
 function bg(e) {
-    let ak = e.target;
-    ak.style.backgroundImage = "url(bilder/farbkleks.gif)";
+    window.localStorage.clear();
+    console.log(e.target);
+    let ak = e.target.firstElementChild;
+    ak.src = "bilder/farbkleks.gif";
 }
 function bg2(e) {
-    let ak = e.target;
-    ak.style.backgroundImage = "url(bilder)";
+    let ak = e.target.firstElementChild;
+    ak.src = "bilder/farbkleks.png";
 }
 //# sourceMappingURL=menu.js.map

@@ -5,3 +5,30 @@ h1{
     margin-left:20%;
     font-size:6vw;
 }
+html{
+    background-image: url(../bilder/bgScore.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+#scoreTable{
+    width:60%;
+    margin-left:30%;
+    font-size:4.5vw;
+    margin-top:11vw;
+    opacity:0.5;
+}
+#ns{
+    position:absolute;
+    top:28vw;
+    margin-left:1%;
+    font-size: 3vw;
+    width:50%;
+    text-align: left;
+   
+}
+.hoverImg{
+    margin-bottom: -6vw;
+    width:40%;
+    margin-right:-22vw;
+
+}

@@ -8,10 +8,12 @@ function menu():void{
     }
     }
     function bg(e:Event):void{
-        let ak:HTMLElement = <HTMLElement>e.target;
-        ak.style.backgroundImage = "url(bilder/farbkleks.gif)";
+        window.localStorage.clear();
+        console.log(e.target);
+        let ak:HTMLImageElement = <HTMLImageElement>e.target.firstElementChild;
+        ak.src= "bilder/farbkleks.gif";
     }
     function bg2(e:Event):void{
-        let ak:HTMLElement = <HTMLElement>e.target;
-        ak.style.backgroundImage = "url(bilder)";
+        let ak:HTMLImageElement = <HTMLImageElement>e.target.firstElementChild;
+        ak.src= "bilder/farbkleks.png";
     }
