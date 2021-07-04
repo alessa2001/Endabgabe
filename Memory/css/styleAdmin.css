@@ -1,0 +1,67 @@
+html{
+    font-family: 'Indie Flower', cursive;
+ 
+    background-image: url(../bilder/bgAdmin.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+form{
+    margin-left:68%;
+    margin-top:12.5vw;
+    width:20%;
+    font-size: 4vw;
+}
+form button{
+    width:10vw;
+    height:10vw;
+    background-image:url(../bilder/notes.png);
+    background-size: 100%;
+    border: none;
+    font-family: 'Indie Flower', cursive;
+    font-size: 2vw;
+    -webkit-transform: rotate(20deg);
+    transition: 1.2s;
+}
+form button:hover{
+    font-size: 0vw;
+    background-image:url(../bilder/notesSend.png);
+    -webkit-transform: rotate(0deg);
+}
+form textarea{
+    width:100%;
+    height:11vw;
+    opacity:0.8;
+}
+#contentBilder{
+    margin-top:-40vw;
+    width:40%;
+}
+.karteImg{
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition: 1s;
+  
+    z-index:100;
+    background-position-y: 0vw;
+    background-size: 100% 100%;
+    background-image: pink;
+    opacity:1;
+}
+.karteImg:hover{
+    -webkit-transform: rotate(0deg) !important;
+    box-shadow: 1px 1px 15px 10px rgb(255, 255, 255);
+}
+.auswahl{
+    -webkit-transform: rotate(0deg) !important;
+    box-shadow: 1px 1px 15px 10px rgb(255, 255, 255);
+}
+#mulleimer{
+    
+    width:15%;
+    height:23vw;
+    position:absolute;
+    margin-top:8vw;
+    margin-left:42%;
+}

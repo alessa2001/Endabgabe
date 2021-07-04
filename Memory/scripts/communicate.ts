@@ -14,7 +14,7 @@ namespace ServerRequest {
         
         let formData: FormData = new FormData(document.forms[0]);
 
-        let _url: RequestInfo = "https://servertest123somussdasssein.herokuapp.com";
+        let _url: RequestInfo = "https://memoryal.herokuapp.com";
         //let _url: RequestInfo = "http://localhost:8100";
 
         _url = _url + "/paste";
@@ -42,7 +42,7 @@ namespace ServerRequest {
     }
     console.log(platz);
    
-        for(let i:number = 0; i<5;i++){
+        for(let i:number = 0; i<10;i++){
             let ausgabe: HTMLTableCellElement = <HTMLTableCellElement>document.getElementById(""+(i+1));
            
             ausgabe.innerHTML = "<td>"+antwort[ platz[i]].name+"</td> <td>"+antwort[platz[i]].zeit+"</td>";
@@ -55,12 +55,12 @@ namespace ServerRequest {
     async function send(): Promise<void> {
         let nickname = prompt("Dein Nickname", "");
 
-        let _url: RequestInfo = "https://servertest123somussdasssein.herokuapp.com";
+        let _url: RequestInfo = "https://memoryal.herokuapp.com";
         //let _url: RequestInfo = "http://localhost:8100";
 
         _url = _url + "/send";
        
-       _url = _url + "?name=" + nickname + "&zeit="+time;
+       _url = _url + "?src=" + nickname + "&zeit="+time;
       
         console.log(_url);
         let response: Response = await fetch(_url);

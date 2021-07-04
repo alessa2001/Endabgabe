@@ -8,10 +8,10 @@ let zeit = new Date;
 let zeitEnde;
 let gesamtzeit;
 let counter = 0;
-window.addEventListener("load", generateGame);
-async function print() {
+window.addEventListener("load", laden);
+async function laden() {
     let formData = new FormData(document.forms[0]);
-    let _url = "https://servertest123somussdasssein.herokuapp.com";
+    let _url = "https://memoryal.herokuapp.com";
     //let _url: RequestInfo = "http://localhost:8100";
     _url = _url + "/bilder";
     console.log(_url);
@@ -19,9 +19,11 @@ async function print() {
     _url = _url + "?" + query.toString();
     let response = await fetch(_url);
     let antwort = await response.json();
+    console.log(antwort);
     for (let i = 0; i < antwort.length; i++) {
         bilder.push(antwort[i].src);
     }
+    generateGame();
 }
 function generateGame() {
     for (let i = 0; i < muster; i++) {
@@ -30,8 +32,9 @@ function generateGame() {
         bilderMe2.push(bilder[schreiben]);
         bilder.splice(schreiben, 1);
     }
+    console.log(bilderMe2);
     for (let i = 0; i < muster; i++) {
-        let schreiben = Math.random() * bilder.length;
+        let schreiben = Math.round(Math.random() * (bilderMe2.length - 1));
         bilderMe1.push(bilderMe2[schreiben]);
         bilderMe2.splice(schreiben, 1);
     }
@@ -46,7 +49,7 @@ function generateGame() {
         karteBild.addEventListener("click", anschauen);
         karteBild.src = "../bilderSpiel/" + bilderMe1[i];
         karteBild.className = "karteImg";
-        karte.title = "" + bilderMe1[i];
+        karte.slot = "" + bilderMe1[i];
         karte.id = "" + i;
         if (Math.random() < 0.5) {
             karte.style.webkitTransform = "rotate(" + Math.random() * 20 + "deg)";
@@ -71,7 +74,7 @@ function anschauen(e) {
 }
 function uberprufenf() {
     if (uberprufen.length > 1) {
-        if (uberprufen[0].target.parentElement.title == uberprufen[1].target.parentElement.title && uberprufen[0].target.parentElement.id != uberprufen[1].target.parentElement.id) {
+        if (uberprufen[0].target.parentElement.slot == uberprufen[1].target.parentElement.slot && uberprufen[0].target.parentElement.id != uberprufen[1].target.parentElement.id) {
             let mk1 = uberprufen[0].target.parentElement;
             mk1.classList.add('entfernen');
             let mk2 = uberprufen[1].target.parentElement;

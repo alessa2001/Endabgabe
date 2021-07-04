@@ -54,6 +54,18 @@ export namespace ServerRequest {
                 _response.write(JSON.stringify(benutzerBeispiel));
                
 
+            }   else if (pathname == "/sendurl") {
+                let jsonString: string = JSON.stringify(url.query);
+
+                console.log(jsonString);
+                console.log(benutzerBeispiel);
+
+                console.log("Database connected");
+                sendDataUrl(benutzerBeispiel);
+
+                _response.write(JSON.stringify(benutzerBeispiel));
+               
+
             } else if (pathname == "/paste") {
                 _response.write(JSON.stringify( await pasteData()));
 
@@ -72,6 +84,16 @@ export namespace ServerRequest {
         await mongoClient.connect();
         console.log("Database send");
         let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("score");
+        benutzer.insertOne(_b);
+
+    }
+    async function sendDataUrl(_b: ServerAntwort): Promise<void> {
+        let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Database send");
+        let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("src");
         benutzer.insertOne(_b);
 
     }

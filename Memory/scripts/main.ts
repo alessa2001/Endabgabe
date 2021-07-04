@@ -7,17 +7,17 @@ let zeit : Date = new Date;
 let zeitEnde : Date;
 let gesamtzeit:number;
 let counter:number = 0;
-window.addEventListener("load", generateGame);
+window.addEventListener("load", laden);
 
 interface ServerAntwort {
     src: string;
 }
 
-async function print(): Promise<void> {
+async function laden(): Promise<void> {
         
     let formData: FormData = new FormData(document.forms[0]);
 
-    let _url: RequestInfo = "https://servertest123somussdasssein.herokuapp.com";
+    let _url: RequestInfo = "https://memoryal.herokuapp.com";
     //let _url: RequestInfo = "http://localhost:8100";
 
     _url = _url + "/bilder";
@@ -27,10 +27,12 @@ async function print(): Promise<void> {
     let response: Response = await fetch(_url);
    
     let antwort: ServerAntwort[] = <ServerAntwort[]> await response.json();
-
+    console.log(antwort);
     for(let i:number=0; i<antwort.length;i++){
         bilder.push(antwort[i].src);
     }
+    
+    generateGame();
 }
 
 function generateGame():void{
@@ -41,12 +43,14 @@ function generateGame():void{
        bilderMe2.push(bilder[schreiben]);
         bilder.splice(schreiben,1);
     }
+    console.log(bilderMe2);
     for(let i:number=0;i<muster;i++){
-       let schreiben:number= Math.random()*bilder.length;
+       let schreiben:number= Math.round(Math.random()*(bilderMe2.length-1));
        bilderMe1.push(bilderMe2[schreiben]);
        bilderMe2.splice(schreiben,1);
        
     }
+    
     console.log(bilderMe1);
     for(let i:number=0; i<muster*2;i++){
     let content : HTMLDivElement = <HTMLDivElement>document.getElementById("spielfeld");
@@ -59,7 +63,7 @@ function generateGame():void{
         karteBild.addEventListener("click", anschauen);
         karteBild.src = "../bilderSpiel/"+bilderMe1[i];
         karteBild.className= "karteImg";
-       karte.title = ""+bilderMe1[i];
+       karte.slot = ""+bilderMe1[i];
         karte.id = ""+i;
         if(Math.random()<0.5){
             karte.style.webkitTransform = "rotate("+Math.random()*20+"deg)";
@@ -89,7 +93,7 @@ window.setTimeout(uberprufenf ,4000);
 
 function uberprufenf():void{
     if(uberprufen.length>1 ){
-        if(uberprufen[0].target.parentElement.title == uberprufen[1].target.parentElement.title && uberprufen[0].target.parentElement.id != uberprufen[1].target.parentElement.id ){ 
+        if(uberprufen[0].target.parentElement.slot == uberprufen[1].target.parentElement.slot && uberprufen[0].target.parentElement.id != uberprufen[1].target.parentElement.id ){ 
             
                 let mk1:HTMLDivElement = <HTMLDivElement>uberprufen[0].target.parentElement;
                 mk1.classList.add('entfernen');
