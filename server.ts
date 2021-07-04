@@ -25,14 +25,12 @@ export namespace ServerRequest {
         _response.setHeader("Access-Control-Allow-Origin", "*");
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
 
-        if (url.pathname == "/html") {
-            _response.setHeader("content-type", "text/html; charset=utf-8");
-            for (let key in url.query) {
-                _response.write(key + ":" + url.query[key] + "</br>");
-
-            }
+    
+        if (url.pathname == "/json") {
+            _response.setHeader("content-type", "application/json"); 
+            let jsonString: String = JSON.stringify(url.query);
+            _response.write(jsonString);
         }
-       
         _response.end();
     }
   
