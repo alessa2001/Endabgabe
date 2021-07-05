@@ -111,3 +111,12 @@ opacity:1;
     width:40%;
     margin-right:-9vw;
 }
+
+#loading{
+    position:absolute;
+    width:30%;
+    left:35%;
+    top:10vw;
+    opacity:1;
+    transition: 1s;
+}

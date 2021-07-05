@@ -20,7 +20,8 @@ async function bilderladen() {
     generateImage();
 }
 function generateImage() {
-    console.log(bilderSrc);
+    document.getElementById("loading").style.opacity = "0";
+    console.log("sd");
     for (let i = 0; i < bilderSrc.length; i++) {
         let content = document.getElementById("contentBilder");
         let karte = document.createElement("div");

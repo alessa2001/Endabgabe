@@ -30,8 +30,8 @@ async function bilderladen(): Promise<void> {
 }
 
 function generateImage():void{
-   
-    console.log(bilderSrc);
+    document.getElementById("loading").style.opacity = "0";
+    console.log("sd");
     for(let i:number=0; i<bilderSrc.length;i++){
     let content : HTMLDivElement = <HTMLDivElement>document.getElementById("contentBilder");
        
