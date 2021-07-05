@@ -58,6 +58,11 @@ function generateImage():void{
     mulleimer.addEventListener("mouseenter", mullcolor);
     mulleimer.addEventListener("mouseleave", mulloff);
     mulleimer.addEventListener("click", deletSrc);
+    for(let i:number=0;i< document.getElementsByClassName("nav").length;i++){
+        document.getElementsByClassName("nav")[i].addEventListener("mouseenter", bg);
+        document.getElementsByClassName("nav")[i].addEventListener("mouseleave", bg2);
+    }
+
 }
 function mull(e:Event) : void{
     for(let i:number=0; i<document.getElementsByClassName("karte").length;i++){
@@ -120,6 +125,18 @@ async function deletSrc():Promise<void>{
     let benutzer: ServerAntwort = await response.json();
     console.log(benutzer);
     window.open("../html/admin.html?" ,"_self");
+}
+
+
+function bg(e:Event):void{
+    window.localStorage.clear();
+    console.log(e.target);
+    let ak:HTMLImageElement = <HTMLImageElement>e.target.firstElementChild;
+    ak.src= "../bilder/farbkleks.gif";
+}
+function bg2(e:Event):void{
+    let ak:HTMLImageElement = <HTMLImageElement>e.target.firstElementChild;
+    ak.src= "../bilder/farbkleks.png";
 }
 
 document.querySelector("#send").addEventListener("click", send);

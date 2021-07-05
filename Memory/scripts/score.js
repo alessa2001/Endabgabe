@@ -1,8 +1,10 @@
 "use strict";
 window.addEventListener("load", ns);
 function ns() {
-    document.getElementsByClassName("nav")[0].addEventListener("mouseenter", bg);
-    document.getElementsByClassName("nav")[0].addEventListener("mouseleave", bg2);
+    for (let i = 0; i < document.getElementsByClassName("nav").length; i++) {
+        document.getElementsByClassName("nav")[i].addEventListener("mouseenter", bg);
+        document.getElementsByClassName("nav")[i].addEventListener("mouseleave", bg2);
+    }
 }
 function bg(e) {
     window.localStorage.clear();

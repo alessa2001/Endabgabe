@@ -1,8 +1,9 @@
 window.addEventListener("load", ns);
 function ns():void{
-    
-        document.getElementsByClassName("nav")[0].addEventListener("mouseenter", bg);
-        document.getElementsByClassName("nav")[0].addEventListener("mouseleave", bg2);
+    for(let i:number=0;i< document.getElementsByClassName("nav").length;i++){
+        document.getElementsByClassName("nav")[i].addEventListener("mouseenter", bg);
+        document.getElementsByClassName("nav")[i].addEventListener("mouseleave", bg2);
+    }
 
     }
     function bg(e:Event):void{

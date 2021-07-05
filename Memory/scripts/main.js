@@ -60,6 +60,10 @@ function generateGame() {
         content.appendChild(karte);
         karte.appendChild(karteBild);
     }
+    for (let i = 0; i < document.getElementsByClassName("nav").length; i++) {
+        document.getElementsByClassName("nav")[i].addEventListener("mouseenter", bg);
+        document.getElementsByClassName("nav")[i].addEventListener("mouseleave", bg2);
+    }
 }
 function anschauen(e) {
     if (uberprufen.length < 2) {
@@ -101,5 +105,15 @@ function gameEnde() {
         gesamtzeit = Math.floor((zeitEnde.getTime() - zeit.getTime()) / 1000);
         window.open("../html/score.html?" + gesamtzeit, "_self");
     }
+}
+function bg(e) {
+    window.localStorage.clear();
+    console.log(e.target);
+    let ak = e.target.firstElementChild;
+    ak.src = "../bilder/farbkleks.gif";
+}
+function bg2(e) {
+    let ak = e.target.firstElementChild;
+    ak.src = "../bilder/farbkleks.png";
 }
 //# sourceMappingURL=main.js.map
