@@ -21,6 +21,7 @@ async function bilderladen() {
 }
 function generateImage() {
     document.getElementById("loading").style.opacity = "0";
+    document.getElementById("loading").style.display = "none";
     console.log("sd");
     for (let i = 0; i < bilderSrc.length; i++) {
         let content = document.getElementById("contentBilder");

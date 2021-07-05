@@ -31,6 +31,7 @@ async function bilderladen(): Promise<void> {
 
 function generateImage():void{
     document.getElementById("loading").style.opacity = "0";
+    document.getElementById("loading").style.display = "none";
     console.log("sd");
     for(let i:number=0; i<bilderSrc.length;i++){
     let content : HTMLDivElement = <HTMLDivElement>document.getElementById("contentBilder");

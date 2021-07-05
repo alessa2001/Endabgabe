@@ -27,6 +27,7 @@ async function laden() {
 }
 function generateGame() {
     document.getElementById("loading").style.opacity = "0";
+    document.getElementById("loading").style.display = "none";
     for (let i = 0; i < muster; i++) {
         let schreiben = Math.round(Math.random() * (bilder.length - 1));
         bilderMe1.push(bilder[schreiben]);

@@ -37,6 +37,7 @@ async function laden(): Promise<void> {
 
 function generateGame():void{
     document.getElementById("loading").style.opacity = "0";
+    document.getElementById("loading").style.display = "none";
     for(let i:number=0;i<muster;i++){
        let schreiben:number= Math.round(Math.random()*(bilder.length-1));
        bilderMe1.push(bilder[schreiben]);
