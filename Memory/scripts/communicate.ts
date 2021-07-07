@@ -60,9 +60,9 @@ namespace ServerRequest {
 
         _url = _url + "/send";
        
-       _url = _url + "?src=" + nickname + "&zeit="+time;
+       _url = _url + "?name=" + nickname + "&zeit="+time;
       
-        console.log(_url);
+        console.log(nickname);
         let response: Response = await fetch(_url);
         let benutzer: ServerAntwort = await response.json();
         console.log(benutzer);
