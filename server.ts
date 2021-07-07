@@ -5,11 +5,9 @@ import * as Mongo from "mongodb";
 export namespace ServerRequest {
 
     let _url: string = "mongodb+srv://User1:User1Gisistgeil@clustermuster.u2vhe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-    //let _url: string = "mongodb://localhost:27017";
    
 
-    interface ServerAntwort {
+    interface ScoreDaten {
         name: string;
         zeit: string;
     }
@@ -17,41 +15,34 @@ export namespace ServerRequest {
     interface BildSrc {
         src: string;
     }
-    console.log("Starting server"); //Starting server wird ausgegeben
-    let port: number = Number(process.env.PORT);
-    if (!port) //Port == "Hafen"
-        port = 8100; //Port wird mit dem Wert 8100 initialisiert
 
-    let server: Http.Server = Http.createServer(); //Server wird erstellt
-    server.addListener("request", handleRequest); //Dem Server wird ein Listener angehängt, der die Funktion handleRequest aufruft
-    server.addListener("listening", handleListen); //Dem Server wird ein Listener angehängt, der die Funktion handleListen aufruft
-    server.listen(port); //Der Server hört auf den port
+    let port: number = Number(process.env.PORT);
+    if (!port)
+        port = 8100; 
+
+    let server: Http.Server = Http.createServer(); 
+    server.addListener("request", handleRequest);
+    server.addListener("listening", handleListen); 
+    server.listen(port); 
 
 
     function handleListen(): void {
-        console.log("Listening"); // Listening wird in der Konsole ausgegeben
     }
     async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
-        console.log("I hear voices!"); //I hear voices wird im Terminal ausgegeben
-        _response.setHeader("content-type", "text/html; charset=utf-8"); //Die Eigenschaften des Headers werden festgelegt mit setHeader
-        _response.setHeader("Access-Control-Allow-Origin", "*"); //Zugangsberechtigung wird festgelegt, wer hat Zugriff?
+        _response.setHeader("content-type", "text/html; charset=utf-8"); 
+        _response.setHeader("Access-Control-Allow-Origin", "*"); 
 
 
-        console.log(_request.url); //Die URL vom Request wird ausgegeben
-        //Adresse parsen (umwandeln):
+        console.log(_request.url); 
+
         if (_request.url) {
 
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let pathname: string = <string>url.pathname;
-            let benutzerBeispiel: ServerAntwort = { name: url.query.name + "", zeit: url.query.zeit + "" };
+            let benutzerBeispiel: ScoreDaten = { name: url.query.name + "", zeit: url.query.zeit + "" };
             let bildSrc: BildSrc = { src: url.query.src+""};
-            if (pathname == "/send") {
-                let jsonString: string = JSON.stringify(url.query);
-
-                console.log(jsonString);
-                console.log(benutzerBeispiel);
-
-                console.log("Database connected");
+            if (pathname == "/schicken") {
+               
                 sendData(benutzerBeispiel);
 
                 _response.write(JSON.stringify(benutzerBeispiel));
@@ -81,7 +72,7 @@ export namespace ServerRequest {
                 _response.write(JSON.stringify(benutzerBeispiel));
                
 
-            } else if (pathname == "/paste") {
+            } else if (pathname == "/laden") {
                 _response.write(JSON.stringify( await pasteData()));
 
             }
@@ -90,9 +81,9 @@ export namespace ServerRequest {
 
             }
         }
-        _response.end(); //Die Response wird beendet
+        _response.end(); 
     }
-    async function sendData(_b: ServerAntwort): Promise<void> {
+    async function sendData(_b: ScoreDaten): Promise<void> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
@@ -122,7 +113,7 @@ export namespace ServerRequest {
         benutzer.deleteOne(_b);
 
     }
-    async function pasteData(): Promise<ServerAntwort[]> {
+    async function pasteData(): Promise<ScoreDaten[]> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
@@ -130,11 +121,11 @@ export namespace ServerRequest {
         console.log("Database paste");
         let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("score");
         let cursor: Mongo.Cursor = benutzer.find();
-        let ergebnis: ServerAntwort[] = await cursor.toArray();
+        let ergebnis: ScoreDaten[] = await cursor.toArray();
         return ergebnis;
     }
 
-    async function pasteDataBilder(): Promise<ServerAntwort[]> {
+    async function pasteDataBilder(): Promise<ScoreDaten[]> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
@@ -142,7 +133,7 @@ export namespace ServerRequest {
         console.log("Database paste");
         let benutzer: Mongo.Collection = mongoClient.db("memoryal").collection("src");
         let cursor: Mongo.Cursor = benutzer.find();
-        let ergebnis: ServerAntwort[] = await cursor.toArray();
+        let ergebnis: ScoreDaten[] = await cursor.toArray();
         return ergebnis;
     }
 }

@@ -9,7 +9,7 @@ let gesamtzeit:number;
 let counter:number = 0;
 window.addEventListener("load", laden);
 
-interface ServerAntwort {
+interface ScoreDaten {
     src: string;
 }
 
@@ -18,7 +18,7 @@ async function laden(): Promise<void> {
     let formData: FormData = new FormData(document.forms[0]);
 
     let _url: RequestInfo = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
+
 
     _url = _url + "/bilder";
     console.log(_url);
@@ -26,7 +26,7 @@ async function laden(): Promise<void> {
     _url = _url + "?" + query.toString();
     let response: Response = await fetch(_url);
    
-    let antwort: ServerAntwort[] = <ServerAntwort[]> await response.json();
+    let antwort: ScoreDaten[] = <ScoreDaten[]> await response.json();
     console.log(antwort);
     for(let i:number=0; i<antwort.length;i++){
         bilder.push(antwort[i].src);

@@ -1,7 +1,7 @@
-//import { ServerRequest } from "./server";
+
 
 namespace ServerRequest {
-    interface ServerAntwort {
+    interface ScoreDaten {
         name: string;
         zeit: string;
     }
@@ -10,20 +10,19 @@ namespace ServerRequest {
     let vergleich2:number[] = [];
     let platz:number[] = [];
 
-    async function print(): Promise<void> {
+    async function laden(): Promise<void> {
         
         let formData: FormData = new FormData(document.forms[0]);
 
         let _url: RequestInfo = "https://memoryal.herokuapp.com";
-        //let _url: RequestInfo = "http://localhost:8100";
 
-        _url = _url + "/paste";
+        _url = _url + "/laden";
         console.log(_url);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         _url = _url + "?" + query.toString();
         let response: Response = await fetch(_url);
        
-        let antwort: ServerAntwort[] = <ServerAntwort[]> await response.json();
+        let antwort: ScoreDaten[] = <ScoreDaten[]> await response.json();
         for(let i:number = 0; i<antwort.length; i++){
             vergleich.push(parseInt(antwort[i].zeit));
             vergleich2.push(parseInt(antwort[i].zeit));
@@ -49,28 +48,28 @@ namespace ServerRequest {
         }
         time = window.location.toString().split("?")[1];
       if(time != undefined){
-          send();
+          schicken();
       }
     }
-    async function send(): Promise<void> {
+    async function schicken(): Promise<void> {
         let nickname = prompt("Dein Nickname", "");
 
         let _url: RequestInfo = "https://memoryal.herokuapp.com";
         //let _url: RequestInfo = "http://localhost:8100";
 
-        _url = _url + "/send";
+        _url = _url + "/schicken";
        
        _url = _url + "?name=" + nickname + "&zeit="+time;
       
         console.log(nickname);
         let response: Response = await fetch(_url);
-        let benutzer: ServerAntwort = await response.json();
+        let benutzer: ScoreDaten = await response.json();
         console.log(benutzer);
         window.open("../html/score.html","_self");
     }
 
 
-    window.addEventListener("load", print);
+    window.addEventListener("load", laden);
 
 
 

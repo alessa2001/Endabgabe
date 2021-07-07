@@ -1,16 +1,14 @@
 "use strict";
-//import { ServerRequest } from "./server";
 var ServerRequest;
 (function (ServerRequest) {
     let time;
     let vergleich = [];
     let vergleich2 = [];
     let platz = [];
-    async function print() {
+    async function laden() {
         let formData = new FormData(document.forms[0]);
         let _url = "https://memoryal.herokuapp.com";
-        //let _url: RequestInfo = "http://localhost:8100";
-        _url = _url + "/paste";
+        _url = _url + "/laden";
         console.log(_url);
         let query = new URLSearchParams(formData);
         _url = _url + "?" + query.toString();
@@ -38,14 +36,14 @@ var ServerRequest;
         }
         time = window.location.toString().split("?")[1];
         if (time != undefined) {
-            send();
+            schicken();
         }
     }
-    async function send() {
+    async function schicken() {
         let nickname = prompt("Dein Nickname", "");
         let _url = "https://memoryal.herokuapp.com";
         //let _url: RequestInfo = "http://localhost:8100";
-        _url = _url + "/send";
+        _url = _url + "/schicken";
         _url = _url + "?name=" + nickname + "&zeit=" + time;
         console.log(nickname);
         let response = await fetch(_url);
@@ -53,6 +51,6 @@ var ServerRequest;
         console.log(benutzer);
         window.open("../html/score.html", "_self");
     }
-    window.addEventListener("load", print);
+    window.addEventListener("load", laden);
 })(ServerRequest || (ServerRequest = {}));
 //# sourceMappingURL=communicate.js.map

@@ -6,7 +6,6 @@ window.addEventListener("load", bilderladen);
 async function bilderladen() {
     let formData = new FormData(document.forms[0]);
     let _url = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     _url = _url + "/bilder";
     console.log(_url);
     let query = new URLSearchParams(formData);
@@ -28,8 +27,6 @@ function generateImage() {
         let karte = document.createElement("div");
         let karteBild = document.createElement("img");
         karte.className = "karte";
-        /* karte.style.top = ""+Math.random()*(window.innerHeight/(muster-i))+"px";
-         karte.style.left = ""+Math.random()*(window.innerWidth/(muster-i))+"px";*/
         karteBild.addEventListener("click", mull);
         karteBild.src = "" + bilderSrc[i];
         karteBild.className = "karteImg";
@@ -76,7 +73,6 @@ function mulloff() {
 async function send() {
     let formData = new FormData(document.forms[0]);
     let _url = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     let query = new URLSearchParams(formData);
     _url = _url + "/sendurl";
     _url = _url + "?" + query.toString();
@@ -88,7 +84,6 @@ async function send() {
 }
 async function deletSrc() {
     let _url = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     _url = _url + "/delurl";
     let aksrc = document.getElementsByClassName("auswahl")[0].firstChild;
     _url = _url + "?src=" + aksrc.src.toString();

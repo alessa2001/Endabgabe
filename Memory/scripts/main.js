@@ -12,7 +12,6 @@ window.addEventListener("load", laden);
 async function laden() {
     let formData = new FormData(document.forms[0]);
     let _url = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     _url = _url + "/bilder";
     console.log(_url);
     let query = new URLSearchParams(formData);

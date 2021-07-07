@@ -3,7 +3,7 @@ let bilderSrc:string[] = [];
 let src:string;
 window.addEventListener("load", bilderladen);
 
-interface ServerAntwort {
+interface BildDaten {
     src: string;
 }
 
@@ -12,7 +12,6 @@ async function bilderladen(): Promise<void> {
     let formData: FormData = new FormData(document.forms[0]);
 
     let _url: RequestInfo = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
 
     _url = _url + "/bilder";
     console.log(_url);
@@ -20,7 +19,7 @@ async function bilderladen(): Promise<void> {
     _url = _url + "?" + query.toString();
     let response: Response = await fetch(_url);
    
-    let antwort: ServerAntwort[] = <ServerAntwort[]> await response.json();
+    let antwort: BildDaten[] = <BildDaten[]> await response.json();
     console.log(antwort);
     for(let i:number=0; i<antwort.length;i++){
         bilderSrc.push(antwort[i].src);
@@ -39,8 +38,7 @@ function generateImage():void{
         let karte:HTMLDivElement = document.createElement("div");
         let karteBild:HTMLImageElement = document.createElement("img");
         karte.className = "karte"
-       /* karte.style.top = ""+Math.random()*(window.innerHeight/(muster-i))+"px";
-        karte.style.left = ""+Math.random()*(window.innerWidth/(muster-i))+"px";*/
+   
         karteBild.addEventListener("click", mull);
         karteBild.src = ""+bilderSrc[i];
         karteBild.className= "karteImg";
@@ -97,7 +95,6 @@ async function send(): Promise<void> {
     let formData: FormData = new FormData(document.forms[0]);
 
     let _url: RequestInfo = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     let query: URLSearchParams = new URLSearchParams(<any>formData);
     _url = _url + "/sendurl";
    
@@ -105,7 +102,7 @@ async function send(): Promise<void> {
   
     console.log(_url);
     let response: Response = await fetch(_url);
-    let benutzer: ServerAntwort = await response.json();
+    let benutzer: BildDaten = await response.json();
     console.log(benutzer);
     window.open("../html/admin.html?" ,"_self");
 }
@@ -113,7 +110,6 @@ async function send(): Promise<void> {
 async function deletSrc():Promise<void>{
 
     let _url: RequestInfo = "https://memoryal.herokuapp.com";
-    //let _url: RequestInfo = "http://localhost:8100";
     _url = _url + "/delurl";
 
     let aksrc:HTMLImageElement = <HTMLImageElement>document.getElementsByClassName("auswahl")[0].firstChild;
@@ -123,7 +119,7 @@ async function deletSrc():Promise<void>{
   
     console.log(_url);
     let response: Response = await fetch(_url);
-    let benutzer: ServerAntwort = await response.json();
+    let benutzer: BildDaten = await response.json();
     console.log(benutzer);
     window.open("../html/admin.html?" ,"_self");
 }
